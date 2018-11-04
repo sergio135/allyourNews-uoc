@@ -22,7 +22,7 @@ https://getcomposer.org/doc/00-intro.md
 
 ## Instalacion
 
-- ejecutar <composer install> en la raiz del proyecto
+- ejecutar `composer install` en la raiz del proyecto
 
 ## Arrancar el proyecto
 
