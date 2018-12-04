@@ -13,7 +13,9 @@ $app->get('/auth', function (Request $request, Response $response, array $args) 
 
 
     // renderizamos la plantilla register.phtml 
-    $response = $this->view->render($response, 'register.phtml', []);
+    $response = $this->view->render($response, 'auth.phtml', [
+        'loged' => true
+    ]);
 
     // devolver siempre el objeto $response
     return $response;

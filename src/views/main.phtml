@@ -9,22 +9,20 @@
         <h1>Noticias</h1>
         <div class="filters">
             <ul class="tags row">
-            <?php 
-                $array = array('Pais', 'Internacional', 'Economia', 'Moda', 'Otras');
-                foreach ($array as &$valor) {
-            ?>
+                <?php 
+                    $array = array('Pais', 'Internacional', 'Economia', 'Moda', 'Otras');
+                    foreach ($array as &$valor) {
+                ?>
                 <li onClick="console.log('click')"><?php echo $valor ?></li>
-            <?php
-                }
-            ?>
+                <?php } ?>
             </ul>
         </div>
 
         <div class="content row between">
-        <?php 
-            $array = array(1, 2, 3, 4, 5, 6);
-            foreach ($array as &$valor) {
-        ?>
+            <?php 
+                $array = array(1, 2, 3, 4, 5, 6);
+                foreach ($array as &$valor) {
+            ?>
             <div class="card">
                 <div class="card__img">
                     <img src="./public/images/world.png">
@@ -51,9 +49,7 @@
                     </div>
                 </div>
             </div>
-        <?php
-            }
-        ?>
+            <?php } ?>
         </div>
     </div>
 </main>

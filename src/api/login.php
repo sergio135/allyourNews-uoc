@@ -11,12 +11,20 @@ $app->get('/api/login', function (Request $request, Response $response, array $a
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
 
-    // aun por terminar
     $name = $args['name'];
-    $response->getBody()->write("Hello, $name");
+
+    $statusCode = 200;
+    $data = [
+        'errors' => [
+            'messagge' => 'El usuario no existe'
+        ],
+        'id' => 'a6s7d8a6sd',
+        'name' => 'Bob Jason',
+        'email' => 'asdasd@gmail.com'
+    ];
 
     // devolver siempre el objeto $response
-    return $response;
+    return $response->withJson($data, $statusCode);
 });
 
 ?>

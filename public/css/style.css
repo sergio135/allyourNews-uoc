@@ -2,6 +2,16 @@
 * Archivo global de estilos, 
 * poner aqui todos los estilos de la aplicaccion 
 *************************************************/
+/*********** Paleta de colores **************
+* HEX
+* #DAF7A6
+* #FFC300
+* #FF5733
+* #C70039
+* #900C3F
+* #581845
+*********** Paleta de colores **************/
+
 header,
 footer,
 main {
@@ -194,7 +204,7 @@ main h1::after {
   text-align: center;
 }
 
-/************ Register *************/
+/************ Auth *************/
 .auth {
   margin-bottom: 30px;
 }
@@ -210,6 +220,34 @@ main h1::after {
 .auth .box input {
   width: 100%;
   margin-bottom: 10px;
+}
+
+.auth .box input[type="submit"] {
+  width: auto;
+  display: inline-block;
+  padding: 10px 15px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  transition: 0.4s;
+  cursor: pointer;
+  background-color: #ffc300;
+  color: #581845;
+}
+
+.auth .box input[type="submit"]:hover {
+  background-color: #c1fe4e;
+  color: #581845;
+}
+
+.auth .error-modal {
+  display: none;
+  padding: 10px 20px;
+  border: 2px solid #ff5733;
+  border-radius: 10px;
+  margin-top: 10px;
+  color: #ff5733;
+  font-weight: bold;
 }
 
 /************ Dashboard *************/
