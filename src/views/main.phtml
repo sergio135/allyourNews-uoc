@@ -13,12 +13,12 @@
                     $array = array('Pais', 'Internacional', 'Economia', 'Moda', 'Otras');
                     foreach ($array as &$valor) {
                 ?>
-                <li onClick="console.log('click')"><?php echo $valor ?></li>
+                <li id="articles-tag"><?php echo $valor ?></li>
                 <?php } ?>
             </ul>
         </div>
 
-        <div class="content row between">
+        <div id="articles-area" class="content row between">
             <?php 
                 $array = array(1, 2, 3, 4, 5, 6);
                 foreach ($array as &$valor) {

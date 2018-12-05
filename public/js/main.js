@@ -4,6 +4,9 @@
 //////// Auxilar Functions ///////////
 const Fetch = (url, headers) =>
   fetch(url, {
+    headers: {
+      "Content-Type": "application/json"
+    },
     ...headers
   }).then(res => {
     if (res.ok) {
@@ -12,6 +15,47 @@ const Fetch = (url, headers) =>
       throw new Error(res.statusText);
     }
   });
+
+const renderArticles = tag => {
+  const tagString = tag ? `/${tag}` : "";
+  console.log(newAttack.urls.articlesApi + tagString);
+  return Fetch(newAttack.urls.articlesApi + tagString).then(res => {
+    if (res.error) {
+      throw new Error(res.error);
+    } else {
+      return res.articles.map(
+        article => `
+        <div class="card">
+            <div class="card__img">
+                <img src="./public/images/world.png">
+            </div>
+            <div class="card__content">
+                <div class="row between">
+                    <div class="header-icon">
+                        <img src="./public/images/${article.image}" />
+                    </div>
+                    <div class="header-title">
+                        <h3>${article.title}</h3>
+                        <h6>${article.subTitle}</h6>
+                    </div>
+                    <div class="header-time">
+                        <span>${article.create}</span>
+                    </div>
+                </div>
+                <div>
+                    <p>${article.description}</p>
+                </div>
+                <div class="row between">
+                    <span class="button red outline" onClick="">Eliminar</span>
+                    <span class="button yellow outline" onClick="">Ver más!</span>
+                </div>
+            </div>
+        </div>
+      `
+      );
+    }
+  });
+};
 
 ///////// Global Config /////////////
 const newAttack = {
@@ -26,8 +70,9 @@ const newAttack = {
 
 ///////// FrontEnd logic /////////////
 window.onload = () => {
-  document.querySelector("#auth-form").onload = () => {
-    document.querySelector("#auth-form").addEventListener("submit", event => {
+  const authForm = document.querySelector("#auth-form");
+  if (authForm)
+    authForm.addEventListener("submit", event => {
       event.preventDefault();
       if (event.target.attributes.register) {
         Fetch(newAttack.urls.registerApi).then(res => {
@@ -51,15 +96,22 @@ window.onload = () => {
         });
       }
     });
-  };
 
-  document.querySelector("main.dashboard").onload = () => {
-    const renderArticles = tags => {
-      Fetch(newAttack.urls.articlesApi).then(res => {
-        if (res.error) {
-        } else {
-        }
+  const content = document.querySelector("#articles-area");
+  if (content) {
+    renderArticles().then(res => {
+      content.innerHTML = res.join();
+    });
+  }
+
+  const tags = document.querySelectorAll("#articles-tag");
+  if (tags) {
+    tags.forEach(tag => {
+      tag.addEventListener("click", event => {
+        renderArticles(event.target.innerHTML.toLowerCase()).then(res => {
+          content.innerHTML = res.join();
+        });
       });
-    };
-  };
+    });
+  }
 };
