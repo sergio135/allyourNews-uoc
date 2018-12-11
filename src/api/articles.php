@@ -17,28 +17,8 @@ $app->get('/api/articles', function (Request $request, Response $response, array
             'messagge' => 'El usuario no existe'
         ],
         'articles' => [
-            0 => [
-                'title' => 'El cohete de Space X',
-                'subTitle' => 'La Compañia Space X tiene nuevo cohete',
-                'create' => '15m',
-                'image' => 'world.png',
-                'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-            ],
-            1 => [
-                'title' => 'El cohete de Space X',
-                'subTitle' => 'La Compañia Space X tiene nuevo cohete',
-                'create' => '15m',
-                'image' => 'world.png',
-                'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-            ],
-            2 => [
-                'title' => 'El cohete de Space X',
-                'subTitle' => 'La Compañia Space X tiene nuevo cohete',
-                'create' => '15m',
-                'image' => 'world.png',
-                'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-            ],
-        ],
+            'https://www.20minutos.es/rss/',
+        ]
     ];
 
     // devolver siempre el objeto $response
@@ -58,21 +38,8 @@ $app->get('/api/articles/{tag}', function (Request $request, Response $response,
             'messagge' => 'El usuario no existe'
         ],
         'articles' => [
-            0 => [
-                'title' => 'El cohete de Space X',
-                'subTitle' => 'La Compañia Space X tiene nuevo cohete',
-                'create' => '15m',
-                'image' => 'world.png',
-                'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-            ],
-            1 => [
-                'title' => 'El cohete de Space X',
-                'subTitle' => 'La Compañia Space X tiene nuevo cohete',
-                'create' => '15m',
-                'image' => 'world.png',
-                'description' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book"
-            ],
-        ],
+            'https://www.20minutos.es/rss/',
+        ]
     ];
 
     // devolver siempre el objeto $response

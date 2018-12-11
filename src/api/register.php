@@ -11,10 +11,10 @@ $app->get('/api/register', function (Request $request, Response $response, array
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
 
-    $statusCode = 305;
+    $statusCode = 200;
     $data = [
         'error' => [
-            'messagge' => 'nada'
+            'messagge' => 'El usuario no existe'
         ],
         'id' => 'a6s7d8a6sd',
         'name' => 'Bob Jason',

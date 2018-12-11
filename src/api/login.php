@@ -11,8 +11,6 @@ $app->get('/api/login', function (Request $request, Response $response, array $a
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
 
-    $name = $args['name'];
-
     $statusCode = 200;
     $data = [
         'errors' => [

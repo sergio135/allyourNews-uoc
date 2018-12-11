@@ -293,3 +293,9 @@ main h1::after {
 .dashboard .card .card__content .header-time {
   width: 10%;
 }
+
+.dashboard .card .card__content .description {
+  max-height: 300px;
+  overflow: scroll;
+  margin-bottom: 10px;
+}

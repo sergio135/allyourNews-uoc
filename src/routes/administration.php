@@ -13,7 +13,9 @@ $app->get('/administration', function (Request $request, Response $response, arr
 
 
     // renderizamos la plantilla administration.phtml 
-    $response = $this->view->render($response, 'administration.phtml', []);
+    $response = $this->view->render($response, 'administration.phtml', [
+        'isLoged' => true
+    ]);
 
     // devolver siempre el objeto $response
     return $response;

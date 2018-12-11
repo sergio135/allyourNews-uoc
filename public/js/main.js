@@ -16,55 +16,77 @@ const Fetch = (url, headers) =>
     }
   });
 
+const CalculateTime = date => {
+  const fixedDate = new Date(date);
+  const now = new Date();
+  const dif = now.getTime() - fixedDate.getTime();
+  console.log(dif / (3600 * 1000));
+
+  return `${parseInt(dif / (3600 * 1000))} h`;
+};
+
 const renderArticles = tag => {
   const tagString = tag ? `/${tag}` : "";
-  console.log(newAttack.urls.articlesApi + tagString);
-  return Fetch(newAttack.urls.articlesApi + tagString).then(res => {
-    if (res.error) {
-      throw new Error(res.error);
-    } else {
-      return res.articles.map(
+  console.log(newAttack.api.articles + tagString);
+  return Fetch(newAttack.api.articles + tagString)
+    .then(res => {
+      if (res.error) {
+        throw new Error(res.error);
+      } else {
+        return feednami.load(res.articles[0]);
+      }
+    })
+    .then(feed => {
+      console.log(feed);
+      return feed.entries.map(
         article => `
-        <div class="card">
-            <div class="card__img">
-                <img src="./public/images/world.png">
-            </div>
-            <div class="card__content">
-                <div class="row between">
-                    <div class="header-icon">
-                        <img src="./public/images/${article.image}" />
-                    </div>
-                    <div class="header-title">
-                        <h3>${article.title}</h3>
-                        <h6>${article.subTitle}</h6>
-                    </div>
-                    <div class="header-time">
-                        <span>${article.create}</span>
-                    </div>
-                </div>
-                <div>
-                    <p>${article.description}</p>
-                </div>
-                <div class="row between">
-                    <span class="button red outline" onClick="">Eliminar</span>
-                    <span class="button yellow outline" onClick="">Ver más!</span>
-                </div>
-            </div>
-        </div>
-      `
+      <div class="card">
+          <div class="card__img">
+              <img src="${
+                article.image && typeof article.image !== "object"
+                  ? article.image
+                  : "/public/images/world.png"
+              }">
+          </div>
+          <div class="card__content">
+              <div class="row between">
+                  <div class="header-icon">
+                      <img src="./public/images/accenture.jpg" />
+                  </div>
+                  <div class="header-title">
+                      <h3>${article.title ? article.title : ""}</h3>
+                      <h6>${article.subTitle ? article.subTitle : ""}</h6>
+                  </div>
+                  <div class="header-time">
+                      <span>${
+                        article.date ? CalculateTime(article.date) : ""
+                      }</span>
+                  </div>
+              </div>
+              <div class="description">
+                  <p>${article.description ? article.description : ""}</p>
+              </div>
+              <div class="row between">
+                  <span class="button red outline" onClick="">Eliminar</span>
+                  <span class="button yellow outline" onClick="">Ver más!</span>
+              </div>
+          </div>
+      </div>
+    `
       );
-    }
-  });
+    });
 };
 
 ///////// Global Config /////////////
 const newAttack = {
   urls: {
     domain: window.location.origin,
-    loginApi: `${window.location.origin}/new/api/login`,
-    registerApi: `${window.location.origin}/new/api/login`,
-    articlesApi: `${window.location.origin}/new/api/articles`,
-    dashboard: `${window.location.origin}/new/dashboard`
+    dashboard: `${window.location.origin}/dashboard`
+  },
+  api: {
+    register: `${window.location.origin}/api/register`,
+    articles: `${window.location.origin}/api/articles`,
+    login: `${window.location.origin}/api/login`
   }
 };
 
@@ -75,7 +97,7 @@ window.onload = () => {
     authForm.addEventListener("submit", event => {
       event.preventDefault();
       if (event.target.attributes.register) {
-        Fetch(newAttack.urls.registerApi).then(res => {
+        Fetch(newAttack.api.register).then(res => {
           if (res.error) {
             const errBox = document.querySelector(".auth .error-modal");
             errBox.style.display = "block";
@@ -85,7 +107,7 @@ window.onload = () => {
           }
         });
       } else {
-        Fetch(newAttack.urls.loginApi).then(res => {
+        Fetch(newAttack.api.login).then(res => {
           if (res.error) {
             const errBox = document.querySelector(".auth .error-modal");
             errBox.style.display = "block";

@@ -6,19 +6,21 @@
         <div class="row between bottom">
             <div class="logo">
                 <a href="/">
-                    <img src="./public/images/logo.png">
+                    <img src="/public/images/logo.png">
                 </a>
             </div>
             <div class="menu row">
                 <div class="menu__search-box">
                     <input type="text">
                 </div>
-                <div class="menu__register">
-                    <a class="button red" href="./auth">Registrarse</a>
-                </div>
-                <div class="menu__login">
-                    <a class="button red" href="./auth">Login</a>
-                </div>
+                <?php if (!$isLoged) { ?>
+                    <div class="menu__register">
+                    <a class="button red" href="/auth/register">Registrarse</a>
+                    </div>
+                    <div class="menu__login">
+                    <a class="button red" href="/auth/login">Login</a>
+                    </div>
+                <?php } ?>
             </div>
         </div>
         <div class="separator"></div>

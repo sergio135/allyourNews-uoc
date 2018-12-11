@@ -10,8 +10,8 @@
 
         <div class="box">
             
-            <form id="auth-form" <?php if ($loged) { echo 'login'; } else { echo 'register'; } ?>>
-                <?php if ($loged) { ?>  
+            <form id="auth-form" <?php if ($isLogin) { echo 'login'; } else { echo 'register'; } ?>>
+                <?php if ($isLogin) { ?>  
                 <input class="white" type="text" placeholder="Email"/>
                 <input class="white" type="text" placeholder="Contraseña"/>
                 <div class="row end">
@@ -25,9 +25,7 @@
                 <div class="row end">
                     <input type="submit" value="Registrarse">
                 </div>
-                <div class="error-modal">
-                    asda
-                </div>
+                <div class="error-modal">Error: </div>
                 <?php }; ?>
             </form>
         </div>

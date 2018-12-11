@@ -13,7 +13,9 @@ $app->get('/dashboard', function (Request $request, Response $response, array $a
 
 
     // renderizamos la plantilla main.phtml 
-    $response = $this->view->render($response, 'main.phtml', []);
+    $response = $this->view->render($response, 'main.phtml', [
+        'isLoged' => true
+    ]);
 
     // devolver siempre el objeto $response
     return $response;

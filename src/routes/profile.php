@@ -13,7 +13,9 @@ $app->get('/profile', function (Request $request, Response $response, array $arg
 
 
     // renderizamos la plantilla profile.phtml 
-    $response = $this->view->render($response, 'profile.phtml', []);
+    $response = $this->view->render($response, 'profile.phtml', [
+        'isLoged' => true
+    ]);
 
     // devolver siempre el objeto $response
     return $response;
