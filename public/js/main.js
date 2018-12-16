@@ -93,29 +93,43 @@ const newAttack = {
 ///////// FrontEnd logic /////////////
 window.onload = () => {
   const authForm = document.querySelector("#auth-form");
-  if (authForm)
+  const errBox = document.querySelector(".auth .error-modal");
+  if (authForm && errBox)
     authForm.addEventListener("submit", event => {
       event.preventDefault();
       if (event.target.attributes.register) {
-        Fetch(newAttack.api.register).then(res => {
-          if (res.error) {
-            const errBox = document.querySelector(".auth .error-modal");
-            errBox.style.display = "block";
-            errBox.innerHTML = res.error.messagge;
-          } else {
+        const { username, email, password } = event.target.children;
+        axios
+          .post(newAttack.api.register, {
+            username: username.value,
+            email: email.value,
+            password: password.value
+          })
+          .then(function(res) {
             window.location.href = newAttack.urls.dashboard;
-          }
-        });
+          })
+          .catch(function(err) {
+            console.error(err.response.data);
+            errBox.style.display = "block";
+            errBox.innerHTML =
+              err.response.data.message || err.response.data.error.msg;
+          });
       } else {
-        Fetch(newAttack.api.login).then(res => {
-          if (res.error) {
-            const errBox = document.querySelector(".auth .error-modal");
-            errBox.style.display = "block";
-            errBox.innerHTML = res.error.messagge;
-          } else {
+        const { username, password } = event.target.children;
+        axios
+          .post(newAttack.api.login, {
+            username: username.value,
+            password: password.value
+          })
+          .then(function(res) {
             window.location.href = newAttack.urls.dashboard;
-          }
-        });
+          })
+          .catch(function(err) {
+            console.error(err.response.data);
+            errBox.style.display = "block";
+            errBox.innerHTML =
+              err.response.data.message || err.response.data.error.msg;
+          });
       }
     });
 

@@ -12,16 +12,16 @@
             
             <form id="auth-form" <?php if ($isLogin) { echo 'login'; } else { echo 'register'; } ?>>
                 <?php if ($isLogin) { ?>  
-                <input class="white" type="text" placeholder="Email"/>
-                <input class="white" type="text" placeholder="Contraseña"/>
+                <input name="username" class="white" type="text" placeholder="Nombre de usuario"/>
+                <input name="password" class="white" type="text" placeholder="Contraseña"/>
                 <div class="row end">
                     <input type="submit" value="Iniciar session">
                 </div>
                 <div class="error-modal">Error: </div>
                 <?php } else { ?>
-                <input class="white" type="text" placeholder="Nombre de usuario"/>
-                <input class="white" type="text" placeholder="Email"/>
-                <input class="white" type="text" placeholder="Contraseña"/>
+                <input name="username" class="white" type="text" placeholder="Nombre de usuario"/>
+                <input name="email" class="white" type="text" placeholder="Email"/>
+                <input name="password" class="white" type="text" placeholder="Contraseña"/>
                 <div class="row end">
                     <input type="submit" value="Registrarse">
                 </div>

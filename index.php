@@ -10,10 +10,10 @@ $config['addContentLengthHeader'] = false;
 
 $config['db']['host'] = 'localhost';
 $config['db']['user'] = 'root';
-$config['db']['pass'] = '';
-$config['db']['dbname'] = 'allyournew';
+$config['db']['pass'] = 'root';
+$config['db']['dbname'] = 'newsattack';
 
-$app = new \Slim\App;
+$app = new \Slim\App(['settings' => $config]);
 
 // Se crea un container que servira para añadir mas 
 // dependencias al proyecto y enlazarlas con el framework.
@@ -24,8 +24,7 @@ $container['view'] = new \Slim\Views\PhpRenderer('./src/views/');
 
 $container['db'] = function ($c) {
     $db = $c['settings']['db'];
-    $pdo = new PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'],
-        $db['user'], $db['pass']);
+    $pdo = new PDO('mysql:host=' . $db['host'] . ';dbname=' . $db['dbname'], $db['user'], $db['pass']);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     return $pdo;
@@ -33,17 +32,18 @@ $container['db'] = function ($c) {
 
 // Importamos el resto de codigo de nuestra aplicacion 
 // categorizado por funcionalidad.
-require './src/routes/index.php';
-require './src/api/index.php';
-// require __DIR__ . '/src/db/Classes/Models/News.php';
-// require __DIR__ . '/src/db/Classes/Models/User.php';
-// require __DIR__ . '/src/db/Classes/Controllers/AdminPanelController.php';
-// require __DIR__ . '/src/db/Classes/Controllers/NewsController.php';
-// require __DIR__ . '/src/db/Classes/Controllers/UserController.php';
-// require __DIR__ . '/src/db/Classes/Dao/UserDao.php';
-// require __DIR__ . '/src/db/Classes/Dao/NewsDao.php';
+require __DIR__ . '/src/routes/index.php';
+require __DIR__ . '/src/api/index.php';
+require __DIR__ . '/src/db/Classes/Models/News.php';
+require __DIR__ . '/src/db/Classes/Models/User.php';
 
-// session_start();
+require __DIR__ . '/src/db/Classes/Controllers/NewsController.php';
+require __DIR__ . '/src/db/Classes/Controllers/UserController.php';
+
+require __DIR__ . '/src/db/Classes/Dao/UserDao.php';
+require __DIR__ . '/src/db/Classes/Dao/NewsDao.php';
+
+session_start();
 
 
 // Se lanza toda la aplicacion.
