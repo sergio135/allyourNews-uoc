@@ -4,9 +4,24 @@
 <?php /* incluimos la plantilla goblal */ include __DIR__ . '/layout.phtml' ?>
 <?php /* incluimos la cabecera */ include __DIR__ . '/header.phtml' ?>
 
-<main class="home">
+<main class="administration">
     <div class="container">
         <h1>Tus RSS</h1>
+    </div>
+    <div class="list_rss">
+        <h3>Lista de RSS registradas</h3>
+        <ul>
+        <?php foreach ($rssList['rssUrls'] as $valor) { ?>
+            <li>Url: <span><?php echo $valor['url_rss'] ?></span></li>
+        <?php } ?>
+        </ul>
+    </div>
+    <div class="add_rss">
+        <h3>Añade una nueva url a tu lista</h3>
+        <form action="/add-url" method="get">
+            <input name="rss" type="text" placeholder="url de la nueva rss"/>
+            <input type="submit" value="Añadir">
+        </form>
     </div>
 </main>
 

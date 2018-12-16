@@ -5,7 +5,6 @@ use Exception;
 use PDO;
 
 class NewsDao {
-
     private $conn;
     private $error;
 
@@ -28,6 +27,46 @@ class NewsDao {
     public function setError($error) {
         $this->error = $error;
     }
+
+    public function listRssUrls($user) {
+        $db = $this->getConn();
+        $db->beginTransaction();
+
+        $name = $user->getName();
+
+        try {
+            $sql = "SELECT rss.url_rss, users.username 
+                FROM rss, suscripciones, users 
+                WHERE rss.id_rss = suscripciones.id_rss 
+                AND suscripciones.id_user = users.id_user 
+                AND users.username = \"{$name}\"";
+
+            $rows = $db->query($sql)->fetchAll();
+            return $rows;         
+
+        } catch (Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
+
+    public function addNewUrls($user, $url) {
+        $userId = $user->getId();
+        $db = $this->getConn();
+
+        try {
+            $stmt = $db->prepare("INSERT IGNORE INTO rss(url_rss) VALUES (:urlrss); SET @id_rss = LAST_INSERT_ID(); INSERT INTO suscripciones (id_user, id_rss) VALUES(:userid, @id_rss)");
+            $stmt->bindParam('urlrss', $url);
+            $stmt->bindParam('userid', $userId);
+            $result = $stmt->execute(); 
+            return $result;
+                 
+        } catch (Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
+
+    
+
 
     public function add($title, $subtitle, $content, $img, $autor, $category_id, $keywords) {
         $db = $this->getConn();

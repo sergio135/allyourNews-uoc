@@ -10,7 +10,9 @@ $app->get('/profile', function (Request $request, Response $response, array $arg
     // $request: objeto que trae informacion sobre la peticion a la ruta.
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
-
+    if (!isset($_SESSION['user'])) {
+        return $res->withRedirect('/auth');
+    }
 
     // renderizamos la plantilla profile.phtml 
     $response = $this->view->render($response, 'profile.phtml', [

@@ -28,17 +28,23 @@ const CalculateTime = date => {
 const renderArticles = tag => {
   const tagString = tag ? `/${tag}` : "";
   console.log(newAttack.api.articles + tagString);
-  return Fetch(newAttack.api.articles + tagString)
-    .then(res => {
-      if (res.error) {
-        throw new Error(res.error);
-      } else {
-        return feednami.load(res.articles[0]);
+  return axios
+    .get(newAttack.api.articles + tagString)
+    .then(function(res) {
+      if (!res.data.rssUrls || !res.data.rssUrls.lenght) {
+        throw new Error("No has añadido ninguna RSS");
       }
+      return res.data.rssUrls.map(rss => feednami.load(rss.url_rss));
     })
-    .then(feed => {
-      console.log(feed);
-      return feed.entries.map(
+    .then(function(res) {
+      return Promise.all(res);
+    })
+    .then(function(feed) {
+      let arr = [];
+      feed.forEach(i => {
+        arr.push(...i.entries);
+      });
+      return arr.map(
         article => `
       <div class="card">
           <div class="card__img">
@@ -75,6 +81,13 @@ const renderArticles = tag => {
     `
       );
     });
+  // .catch(err => {
+  //   debugger;
+  //   console.error(err);
+  //   errBox.style.display = "block";
+  //   errBox.innerHTML =
+  //     err.message || err.response.data.message || err.response.data.error.msg;
+  // });
 };
 
 ///////// Global Config /////////////
@@ -93,7 +106,7 @@ const newAttack = {
 ///////// FrontEnd logic /////////////
 window.onload = () => {
   const authForm = document.querySelector("#auth-form");
-  const errBox = document.querySelector(".auth .error-modal");
+  const errBox = document.querySelector(".error-modal");
   if (authForm && errBox)
     authForm.addEventListener("submit", event => {
       event.preventDefault();
@@ -141,12 +154,17 @@ window.onload = () => {
   }
 
   const tags = document.querySelectorAll("#articles-tag");
-  if (tags) {
+  if (tags && errBox) {
     tags.forEach(tag => {
       tag.addEventListener("click", event => {
-        renderArticles(event.target.innerHTML.toLowerCase()).then(res => {
-          content.innerHTML = res.join();
-        });
+        renderArticles(event.target.innerHTML.toLowerCase())
+          .then(res => {
+            debugger;
+            content.innerHTML = res.join();
+          })
+          .catch(err => {
+            console.error(err);
+          });
       });
     });
   }

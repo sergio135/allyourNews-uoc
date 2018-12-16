@@ -10,7 +10,9 @@ $app->get('/dashboard', function (Request $request, Response $response, array $a
     // $request: objeto que trae informacion sobre la peticion a la ruta.
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
-
+    if (!isset($_SESSION['user'])) {
+        return $res->withRedirect('/auth');
+    }
 
     // renderizamos la plantilla main.phtml 
     $response = $this->view->render($response, 'main.phtml', [

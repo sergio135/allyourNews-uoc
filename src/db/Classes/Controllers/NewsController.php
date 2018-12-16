@@ -22,6 +22,33 @@ class NewsController {
         $this->container = $container;
     }
 
+    public function getNewsUrls($user) {
+        $newsDao = new NewsDao($this->container['db']);
+        $news = $newsDao->listRssUrls($user);
+
+        if ($newsDao->getError() != null) {
+            return;
+        }
+
+        return [
+            "rssUrls" => $news,
+        ];
+    }
+
+    public function addNewUrls($user, $url) {
+        $newsDao = new NewsDao($this->container['db']);
+        $news = $newsDao->addNewUrls($user, $url);
+
+        if ($newsDao->getError() != null) {
+            return;
+        }
+
+        return [
+            "status" => true,
+        ];
+    }
+
+
     public function addNews($request, $response, $args) {
         $filename = "";
         $title = trim($request->getParam('title'));

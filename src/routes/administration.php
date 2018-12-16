@@ -10,11 +10,17 @@ $app->get('/administration', function (Request $request, Response $response, arr
     // $request: objeto que trae informacion sobre la peticion a la ruta.
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
+    if (!isset($_SESSION['user'])) {
+        return $res->withRedirect('/auth');
+    }
 
+    $news = new NewsController($this);
+    $result = $news->getNewsUrls($_SESSION['user']);
 
     // renderizamos la plantilla administration.phtml 
     $response = $this->view->render($response, 'administration.phtml', [
-        'isLoged' => true
+        'isLoged' => true,
+        'rssList' => $result
     ]);
 
     // devolver siempre el objeto $response

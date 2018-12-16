@@ -299,3 +299,13 @@ main h1::after {
   overflow: scroll;
   margin-bottom: 10px;
 }
+
+.administration h3 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.administration .list_rss,
+.administration .add_rss {
+  margin-bottom: 30px;
+}

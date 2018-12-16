@@ -6,10 +6,8 @@ use Exception;
 use PDO;
 
 class UserDao {
-
     private $conn;
     private $error;
-
 
     public function __construct($conn) {
         $this->conn = $conn;
