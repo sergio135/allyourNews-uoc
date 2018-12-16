@@ -11,7 +11,7 @@ $app->get('/profile', function (Request $request, Response $response, array $arg
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
     if (!isset($_SESSION['user'])) {
-        return $res->withRedirect('/auth');
+        return $res->withRedirect('/auth/login');
     }
 
     // renderizamos la plantilla profile.phtml 

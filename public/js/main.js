@@ -31,7 +31,7 @@ const renderArticles = tag => {
   return axios
     .get(newAttack.api.articles + tagString)
     .then(function(res) {
-      if (!res.data.rssUrls || !res.data.rssUrls.lenght) {
+      if (!res.data.rssUrls || !res.data.rssUrls.length) {
         throw new Error("No has añadido ninguna RSS");
       }
       return res.data.rssUrls.map(rss => feednami.load(rss.url_rss));

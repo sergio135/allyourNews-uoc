@@ -11,7 +11,7 @@ $app->get('/administration', function (Request $request, Response $response, arr
     // $response: objeto con metodos que sirve para responder al cliente.
     // $args: deferentes argumentos pasados en la peticion.
     if (!isset($_SESSION['user'])) {
-        return $res->withRedirect('/auth');
+        return $res->withRedirect('/auth/login');
     }
 
     $news = new NewsController($this);
